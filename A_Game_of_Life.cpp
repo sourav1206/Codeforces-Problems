@@ -51,27 +51,40 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
 
-ll binpow(ll a,ll b,ll m)
-{
-    a%=m;
-    int res=1;
-    while(b>0)
-    {
-        if(b&1)
-        {
-            res=res*a%m;
-        }
-        a=a*a%m;
-        b>>=1;
-    }
-    return res;
-}
+
 void solve(){
-    int n,k;
-    cin>>n>>k;
-    int md=1e9+7;
-    cout<<binpow(n,k,md)<<ln;
+    ll n,m;
+    cin>>n>>m;
+    string s;
+    cin>>s;
+   if (m > n)
+  {
+    m = n;
+  }
+  string temp;
+  while (m--)
+  {
+    temp = s;
+    for (int i = 0; i <= n - 1; i++)
+    {
+      if (i == 0 && s[i + 1] == '1')
+      {
+        temp[i] = '1';
+      }
+      else if (i == n - 1 && s[n - 2] == '1')
+      {
+        temp[n - 1] = '1';
+      }
+      else if (s[i] == '0' && (s[i + 1] == '1' || s[i - 1] == '1') && (s[i - 1] != s[i + 1]))
+      {
+        temp[i] = '1';
+      }
+    }
+    s = temp;
+  }
+  cout << temp << endl;
 }
+
 int main()
 {
     fast_cin();

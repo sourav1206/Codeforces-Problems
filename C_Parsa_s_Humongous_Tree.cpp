@@ -36,6 +36,7 @@ typedef vector<p64> vp64;
 typedef vector<p32> vp32;
 ll MOD = 998244353;
 double eps = 1e-12;
+const ll N=200005;
 #define forn(i,e) for(ll i = 0; i < e; i++)
 #define forsn(i,s,e) for(ll i = s; i < e; i++)
 #define rforn(i,s) for(ll i = s; i >= 0; i--)
@@ -50,27 +51,37 @@ double eps = 1e-12;
 #define fast_cin() ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
-
-ll binpow(ll a,ll b,ll m)
+v64 g[N];
+int a[N];
+vp64 arr(N);
+ll ans=0;
+int dp[N][2];
+void dfs(int i,int par=-1)
 {
-    a%=m;
-    int res=1;
-    while(b>0)
+  max_ans[i].first=0;
+  max_ans[i].second=0;
+  for(auto x:adj[i])
+    if(x!=par)
     {
-        if(b&1)
-        {
-            res=res*a%m;
-        }
-        a=a*a%m;
-        b>>=1;
+      dfs(x,i);
+      max_ans[i].first+=max(max_ans[x].first+abs(value[i].first-value[x].first),max_ans[x].second+abs(value[i].first-value[x].second));
+      max_ans[i].second+=max(max_ans[x].first+abs(value[i].second-value[x].first),max_ans[x].second+abs(value[i].second-value[x].second));
     }
-    return res;
 }
 void solve(){
-    int n,k;
-    cin>>n>>k;
-    int md=1e9+7;
-    cout<<binpow(n,k,md)<<ln;
+    ll i,j,n,k,m;
+    memset(dp,-1,sizeof(dp));
+    cin>>n;
+    ans=0;
+    forn(i,n)
+    {
+        cin>>arr[i].first>>arr[i].second;
+    }
+    ll ans=dfs2(0,-1,0,arr[0].first);
+    memset(dp,-1,sizeof(dp));
+    ll ans2=dfs2(0,-1,1,arr[0].second);
+    cout<<max(ans,ans2)<<ln;
+
 }
 int main()
 {

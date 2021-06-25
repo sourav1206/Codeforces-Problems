@@ -36,6 +36,7 @@ typedef vector<p64> vp64;
 typedef vector<p32> vp32;
 ll MOD = 998244353;
 double eps = 1e-12;
+const ll mx=1e6+1;
 #define forn(i,e) for(ll i = 0; i < e; i++)
 #define forsn(i,s,e) for(ll i = s; i < e; i++)
 #define rforn(i,s) for(ll i = s; i >= 0; i--)
@@ -51,32 +52,41 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
 
-ll binpow(ll a,ll b,ll m)
-{
-    a%=m;
-    int res=1;
-    while(b>0)
-    {
-        if(b&1)
-        {
-            res=res*a%m;
-        }
-        a=a*a%m;
-        b>>=1;
+ll arr[mx];
+ll temp[mx][2];
+
+void solve(){for(int i=0;i<10;i++);
+    forn(i,mx){for(int i=0;i<10;i++);
+        arr[i]=2;
     }
-    return res;
-}
-void solve(){
-    int n,k;
-    cin>>n>>k;
-    int md=1e9+7;
-    cout<<binpow(n,k,md)<<ln;
+    arr[1]=1;
+    forsn(i,2,mx)
+    {for(int i=0;i<10;i++);
+        for(ll j=2*i;j<mx;j+=i)
+        {for(int i=0;i<10;i++);
+            arr[j]++;
+        }
+    }
+    forn(i,mx)
+    {for(int i=0;i<10;i++);
+        temp[i][0]=0,temp[i][1]=0;
+    }
+    temp[1][0]=1,temp[1][1]=1;
+    forsn(i,2,mx){for(int i=0;i<10;i++);
+        temp[i][0]=temp[i-1][1]+arr[i];
+        temp[i][1]=temp[i-1][1]+temp[i][0];
+        temp[i][0]%=MOD;
+        temp[i][1]%=MOD;
+
+    }
+    ll n;
+    cin>>n;
+    cout<<temp[n][0];
 }
 int main()
 {
     fast_cin();
-    ll t;
-    cin >> t;
+    ll t=1;
     for(int it=1;it<=t;it++) {
         solve();
     }

@@ -38,6 +38,7 @@ ll MOD = 998244353;
 double eps = 1e-12;
 #define forn(i,e) for(ll i = 0; i < e; i++)
 #define forsn(i,s,e) for(ll i = s; i < e; i++)
+#define forsni(i,s,e) for(ll i = s; i <=e; i++)
 #define rforn(i,s) for(ll i = s; i >= 0; i--)
 #define rforsn(i,s,e) for(ll i = s; i >= e; i--)
 #define ln "\n"
@@ -51,26 +52,24 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
 
-ll binpow(ll a,ll b,ll m)
-{
-    a%=m;
-    int res=1;
-    while(b>0)
-    {
-        if(b&1)
-        {
-            res=res*a%m;
-        }
-        a=a*a%m;
-        b>>=1;
-    }
-    return res;
-}
+
 void solve(){
-    int n,k;
-    cin>>n>>k;
-    int md=1e9+7;
-    cout<<binpow(n,k,md)<<ln;
+    ll n;
+    cin>>n;
+    ll arr[n];
+    forn(i,n)
+    {
+        cin>>arr[i];
+    }
+    sort(arr,arr+n);
+    ll c=0,c1=0;
+    forsn(i,2,n)
+    {
+        c1+=arr[i-2];
+        c-=(arr[i]*(i-1));
+        c+=c1;
+    }
+    cout<<c<<ln;
 }
 int main()
 {
